@@ -1,0 +1,7 @@
+Microsoft Edge WebView2 Runtime and Microsoft.Web.WebView2 SDK components
+Copyright Microsoft Corporation. All rights reserved.
+
+The official, unmodified, Microsoft-signed Evergreen Standalone Installer is included.
+Microsoft license terms and third-party notices accompany that installer/runtime.
+https://developer.microsoft.com/en-us/microsoft-edge/webview2/
+https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution

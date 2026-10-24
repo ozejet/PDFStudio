@@ -1,0 +1,103 @@
+{
+  "purpose": "Build-time asset acquisition; runtime uses local paths only",
+  "assets": [
+    {
+      "path": "vendor/fonts/Sarabun-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/88058c714073e72bb1b32baffc2d4ce9bc73944c/ofl/sarabun/Sarabun-Regular.ttf",
+      "sha256": "226d4f368fbc0457990ddef2692679badfd2c1a4e89e5ac4d43c10ba7743b2f1",
+      "license": "OFL-1.1"
+    },
+    {
+      "path": "vendor/fonts/Sarabun-Bold.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/88058c714073e72bb1b32baffc2d4ce9bc73944c/ofl/sarabun/Sarabun-Bold.ttf",
+      "sha256": "d38308ca27d067b9a1b79006337c1f9a66c29aa016d96a9d88d3801da7fa83b9",
+      "license": "OFL-1.1"
+    },
+    {
+      "path": "vendor/fonts/OFL.txt",
+      "source": "https://raw.githubusercontent.com/google/fonts/88058c714073e72bb1b32baffc2d4ce9bc73944c/ofl/sarabun/OFL.txt",
+      "sha256": "b26cae1321380296ba8311b632a397d5eac11b47197f9d0aa0b9310f1531ad60",
+      "license": "OFL-1.1"
+    },
+    {
+      "path": "vendor/licenses/tessdata_fast-LICENSE.txt",
+      "source": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "vendor/tessdata/eng.traineddata",
+      "source": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/eng.traineddata",
+      "sha256": "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "web/public/vendor/ocr/lang/eng.traineddata.gz",
+      "source": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/eng.traineddata",
+      "sha256": "5bb8fe0a952a20e45644291951782a2c3712eab4f64c33f20ec18bb6d787e470",
+      "license": "Apache-2.0 (gzip packaging only)"
+    },
+    {
+      "path": "vendor/tessdata/tha.traineddata",
+      "source": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/tha.traineddata",
+      "sha256": "294227cc2d1292b0acb28d61d4115c88252b96d466ca90b417cf4cf0c67bf07c",
+      "license": "Apache-2.0"
+    },
+    {
+      "path": "web/public/vendor/ocr/lang/tha.traineddata.gz",
+      "source": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/tha.traineddata",
+      "sha256": "281a5ea2baaa21dc88b4e93e387a018fbe133bf156ee495f10c3f42445475e77",
+      "license": "Apache-2.0 (gzip packaging only)"
+    },
+    {
+      "package": "pdfjs-dist",
+      "version": "6.4.299",
+      "license": "Apache-2.0",
+      "source": {
+        "type": "git",
+        "url": "git+https://github.com/mozilla/pdf.js.git"
+      },
+      "installed_from": "web/package-lock.json"
+    },
+    {
+      "package": "tesseract.js",
+      "version": "7.0.0",
+      "license": "Apache-2.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/naptha/tesseract.js.git"
+      },
+      "installed_from": "web/package-lock.json"
+    },
+    {
+      "package": "tesseract.js-core",
+      "version": "7.0.0",
+      "license": "Apache-2.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/naptha/tesseract.js-core.git"
+      },
+      "installed_from": "web/package-lock.json"
+    },
+    {
+      "version": "26.2.6",
+      "path": "vendor/libreoffice/program/soffice.com",
+      "source": "https://download.documentfoundation.org/libreoffice/stable/26.2.6/win/x86_64/LibreOffice_26.2.6_Win_x86-64.msi",
+      "source_code": "https://download.documentfoundation.org/libreoffice/src/26.2.6/",
+      "sha256": "f9877032fd908beb9c0ddf06df4af5c2e85f419c42e14876c4cce5aae5fb2660",
+      "preparation": "Windows MSI administrative extraction, no machine installation",
+      "version_output": "LibreOffice 26.2.6.3 8221e31b3ac356a1623c672912a3d2b492f7e3d1",
+      "license": "See included LibreOffice LICENSE/NOTICE files; MPL-2.0 and component licenses"
+    },
+    {
+      "path": "vendor/prerequisites/VC_redist.x64.exe",
+      "version": "14.51.36247.0",
+      "source": "https://download.visualstudio.microsoft.com/download/pr/ebdab8e5-1d7b-4d9f-a11b-cbb1720c3b12/843068991DAAA1F73AD9F6239BCE4D0F6A07A51F18C37EA2A867E9BECA71295C/VC_redist.x64.exe",
+      "official_permalink": "https://aka.ms/vc14/vc_redist.x64.exe",
+      "sha256": "843068991daaa1f73ad9f6239bce4d0f6a07a51f18c37ea2a867e9beca71295c",
+      "license_source": "https://visualstudio.microsoft.com/wp-content/uploads/2025/10/Visual-C-V14-License-Redistributable_and_Runtime_ENU.docx",
+      "license": "Microsoft Software License Terms; included in vendor/licenses",
+      "preparation": "Downloaded only; never executed or installed"
+    }
+  ]
+}

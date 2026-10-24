@@ -1,0 +1,10 @@
+{
+  "version": "26.2.6",
+  "path": "vendor/libreoffice/program/soffice.com",
+  "source": "https://download.documentfoundation.org/libreoffice/stable/26.2.6/win/x86_64/LibreOffice_26.2.6_Win_x86-64.msi",
+  "source_code": "https://download.documentfoundation.org/libreoffice/src/26.2.6/",
+  "sha256": "f9877032fd908beb9c0ddf06df4af5c2e85f419c42e14876c4cce5aae5fb2660",
+  "preparation": "Windows MSI administrative extraction, no machine installation",
+  "version_output": "LibreOffice 26.2.6.3 8221e31b3ac356a1623c672912a3d2b492f7e3d1",
+  "license": "See included LibreOffice LICENSE/NOTICE files; MPL-2.0 and component licenses"
+}

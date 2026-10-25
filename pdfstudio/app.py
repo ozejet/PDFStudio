@@ -4,7 +4,10 @@ import io
 import json
 import secrets
 import shutil
+import subprocess
+import sys
 import traceback
+import webbrowser
 import zipfile
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -21,6 +24,13 @@ from .source_jobs import SourceJobs
 from .source_formats import reader_html, ENCODINGS
 from .preferences import Preferences
 from .feedback import Feedback
+
+
+def open_external_url(url: str) -> bool:
+    """Open an external URL in the platform's expected browser."""
+    if sys.platform == "darwin":
+        return subprocess.run(["/usr/bin/open", "-a", "Safari", url], capture_output=True).returncode == 0
+    return webbrowser.open(url, new=2)
 
 
 def create_app(data_dir: Path | None = None, *, testing=False):
@@ -103,11 +113,10 @@ def create_app(data_dir: Path | None = None, *, testing=False):
 
     @app.post("/api/feedback/open")
     def open_feedback():
-        import webbrowser
         url = feedback.read()["url"]
         if not url:
             raise ValueError("Connect your Microsoft Form in Settings first.")
-        if not webbrowser.open(url, new=2):
+        if not open_external_url(url):
             raise ValueError("The browser could not open. Copy the form link from Settings and open it in your browser.")
         return jsonify(opened=True)
 

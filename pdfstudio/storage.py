@@ -22,6 +22,9 @@ def app_root() -> Path:
 
 
 def user_data() -> Path:
+    import sys
+    if sys.platform == "darwin":
+        return Path.home() / "Library" / "Application Support" / "PDFStudio"
     return Path(os.environ.get("LOCALAPPDATA", Path.home() / ".local" / "share")) / "PDFStudio"
 
 

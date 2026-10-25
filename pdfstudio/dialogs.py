@@ -11,6 +11,12 @@ from .storage import app_root
 
 
 def choose_save(name: str, folder=""):
+    if getattr(sys, "frozen", False) and sys.platform == "darwin":
+        helper = Path(sys.executable).with_name("PDFStudioSavePanel.app") / "Contents/MacOS/PDFStudioSavePanel"
+        result = subprocess.run([str(helper), name, folder], capture_output=True, text=True)
+        if result.returncode:
+            raise ValueError("The native Save As dialog could not open. Use Download instead.")
+        return result.stdout.rstrip("\r\n") or None
     command = [sys.executable, "--dialog"] if getattr(sys, "frozen", False) else [sys.executable, str(app_root() / "run.py"), "--dialog"]
     # File-based IPC also works in a windowed EXE, where stdin/stdout are None.
     with tempfile.TemporaryDirectory(prefix="pdfstudio-dialog-") as temporary:
@@ -27,6 +33,8 @@ def dialog_main():
     extension = Path(payload["name"]).suffix or ".pdf"
     if sys.platform == "win32":
         value = windows_save(payload["name"], payload.get("folder", ""), extension)
+    elif sys.platform == "darwin":
+        value = macos_save(payload["name"], payload.get("folder", ""))
     else:
         import tkinter as tk
         from tkinter import filedialog
@@ -36,6 +44,31 @@ def dialog_main():
         value = filedialog.asksaveasfilename(title="PDF Studio - Save a copy", initialfile=payload["name"], initialdir=payload.get("folder") or None, defaultextension=extension, filetypes=[(extension.upper().lstrip(".") + " files", "*" + extension), ("All files", "*.*")], parent=root)
         root.destroy()
     Path(sys.argv[-1]).write_text(json.dumps({"path": value or None}, ensure_ascii=False), encoding="utf-8")
+
+
+def macos_save(name: str, folder: str):
+    """Use the system Save panel for source runs; bundles use AppKit directly."""
+    script = r'''
+on run argv
+    tell application "Safari" to activate
+    set suggestedName to item 1 of argv
+    set suggestedFolder to item 2 of argv
+    try
+        if suggestedFolder is "" then
+            set chosenFile to choose file name with prompt "PDF Studio - Save a copy" default name suggestedName
+        else
+            set chosenFile to choose file name with prompt "PDF Studio - Save a copy" default name suggestedName default location POSIX file suggestedFolder
+        end if
+        return POSIX path of chosenFile
+    on error number -128
+        return ""
+    end try
+end run
+'''
+    result = subprocess.run(["/usr/bin/osascript", "-e", script, name, folder], capture_output=True, text=True)
+    if result.returncode:
+        raise ValueError("The macOS Save As dialog could not open. Use Download instead.")
+    return result.stdout.rstrip("\r\n") or None
 
 
 class WindowsSaveDialog:

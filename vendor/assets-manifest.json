@@ -34,7 +34,7 @@
     {
       "path": "web/public/vendor/ocr/lang/eng.traineddata.gz",
       "source": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/eng.traineddata",
-      "sha256": "5bb8fe0a952a20e45644291951782a2c3712eab4f64c33f20ec18bb6d787e470",
+      "sha256": "384e37bf0f5ddcc4a1e24802322a837e0b5692e18150e6078ff1d4379b191f98",
       "license": "Apache-2.0 (gzip packaging only)"
     },
     {
@@ -46,7 +46,7 @@
     {
       "path": "web/public/vendor/ocr/lang/tha.traineddata.gz",
       "source": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/tha.traineddata",
-      "sha256": "281a5ea2baaa21dc88b4e93e387a018fbe133bf156ee495f10c3f42445475e77",
+      "sha256": "a1b3eff4458abb83d58ba10df9bfbe97730bad7657a017b7ba5c103ee346a85b",
       "license": "Apache-2.0 (gzip packaging only)"
     },
     {

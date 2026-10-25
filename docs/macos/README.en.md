@@ -1,14 +1,10 @@
 # PDF Studio for Apple Silicon macOS
 
-> **Documentation preview only.** The macOS DMG, app bundle, and adapted source are not published in this fork. These instructions describe a locally tested personal review build.
-
 This folder documents two local ways to run version 0.1.019. The packaged app is the normal choice. The source/Safari variant is for development and review.
 
 ## Packaged app: no Terminal or Homebrew required
 
-The steps below apply only if you have received the local review package separately; there is no public download in this repository.
-
-1. Open the locally supplied `PDFStudio-0.1.019-arm64.dmg`.
+1. Open `dist/macos/PDFStudio-0.1.019-arm64.dmg`.
 2. Drag **PDFStudio.app** onto the **Applications** link.
 3. Eject the disk image, then open PDFStudio from Applications or Finder.
 4. PDFStudio starts a local engine bound only to `127.0.0.1` and opens its interface in Safari. A repeat launch reuses the running engine.
@@ -25,8 +21,6 @@ The steps below apply only if you have received the local review package separat
 The app stores settings under `~/Library/Application Support/PDFStudio`. Working documents and intermediate results are temporary; save the output you want before quitting.
 
 ## Source/Safari variant
-
-The macOS-specific source changes described here are not published in this fork.
 
 Prerequisites for this variant only: Apple Silicon Mac, Python 3.12 with Tk, Node/npm, and the repository dependencies. The reviewed setup used Homebrew Python 3.12.15 and PyInstaller 6.21.0. LibreOffice is not required unless Office conversion is intentionally enabled later.
 
@@ -54,8 +48,7 @@ The source variant opens Safari and keeps its Python process in the foreground. 
 - PDF, image, text, Markdown, HTML, OCR, organize, edit/redact, and export paths are local. Keep originals and review important exports; PDF transformations can alter complex layout, forms, signatures, layers, or unusual fonts.
 - LibreOffice is not bundled, so Office-to-PDF conversion is unavailable in this build.
 - The bundle is ad-hoc signed, not Apple notarized. Do not bypass Gatekeeper or remove quarantine. If macOS rejects it, stop and obtain a trusted/notarized build.
-- The upstream repository has no project-level license file. Viewing and forking on GitHub is distinct from permission to redistribute. Distribution permission for PDFStudio remains unresolved.
-- PyMuPDF is AGPL/commercial. Any public distribution must satisfy the applicable source/copyleft/notices requirements or use a suitable commercial license, in addition to resolving PDFStudio's own rights.
-- Automation displayed the native Save panel with a synthetic filename, but did not click the final Save button; destination-file creation through that panel remains unverified.
+- The upstream owner authorized this macOS adaptation's source and app packages under GNU AGPLv3 in [Issue #1](https://github.com/BerlinoPotato/PDFStudio/issues/1#issuecomment-6397084771), with corresponding source, preserved notices, credit, and a link to the original repository. This scoped authorization does not change the original repository's license.
+- PyMuPDF 1.28.0 is used under its GNU AGPLv3 option. The release provides the exact PyMuPDF source archive beside the binaries and the adaptation's matching source/build scripts in the tagged fork.
 
-See the [release notes](RELEASE_NOTES-0.1.019.md) for verification details. The full dependency-notice inventory remains with the unpublished local review package.
+See [upstream permission](UPSTREAM_PERMISSION.md), [release notes](RELEASE_NOTES-0.1.019.md), and `packaging/THIRD_PARTY_NOTICES.md` for verification and dependency details.

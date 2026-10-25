@@ -1,14 +1,10 @@
 # PDF Studio สำหรับ macOS แบบ Apple Silicon
 
-> **เอกสารสำหรับตรวจสอบเท่านั้น** ยังไม่มีการเผยแพร่ DMG, app bundle หรือ source ที่ดัดแปลงสำหรับ macOS ใน fork นี้ ขั้นตอนต่อไปนี้อธิบาย build ส่วนตัวที่ทดสอบในเครื่องแล้ว
-
 เอกสารนี้อธิบายวิธีใช้เวอร์ชัน 0.1.019 สองแบบในเครื่อง แบบ `.app` เหมาะกับการใช้งานทั่วไป ส่วนแบบ source/Safari เหมาะกับการพัฒนาและตรวจสอบ
 
 ## แบบแอปสำเร็จรูป: ไม่ต้องใช้ Terminal หรือ Homebrew
 
-ขั้นตอนนี้ใช้เมื่อได้รับ local review package แยกต่างหากเท่านั้น ขณะนี้ไม่มีไฟล์ดาวน์โหลดสาธารณะใน repo นี้
-
-1. เปิดไฟล์ `PDFStudio-0.1.019-arm64.dmg` ที่ได้รับในเครื่อง
+1. เปิด `dist/macos/PDFStudio-0.1.019-arm64.dmg`
 2. ลาก **PDFStudio.app** ไปวางที่ลิงก์ **Applications**
 3. Eject ดิสก์อิมเมจ แล้วเปิด PDFStudio จาก Applications หรือ Finder
 4. แอปจะเปิด engine ภายในเครื่องที่ `127.0.0.1` เท่านั้น และเปิดหน้าจอใน Safari หากเปิดซ้ำ แอปจะใช้ engine เดิม ไม่สร้าง backend ซ้ำ
@@ -25,8 +21,6 @@
 แอปเก็บค่าตั้งไว้ที่ `~/Library/Application Support/PDFStudio` เอกสารที่กำลังทำงานและผลลัพธ์ชั่วคราวจะถูกล้างเมื่อปิด ควรบันทึกไฟล์ที่ต้องการเก็บก่อน Quit
 
 ## แบบ source/Safari
-
-source ที่แก้สำหรับ macOS ตามเอกสารนี้ยังไม่ได้เผยแพร่ใน fork นี้
 
 ข้อกำหนดของแบบนี้เท่านั้น: Mac Apple Silicon, Python 3.12 พร้อม Tk, Node/npm และ dependencies ของ repo การทดสอบครั้งนี้ใช้ Homebrew Python 3.12.15 และ PyInstaller 6.21.0 ไม่ต้องมี LibreOffice เว้นแต่จะเพิ่มงานแปลงไฟล์ Office ภายหลังโดยตั้งใจ
 
@@ -54,8 +48,7 @@ npm --prefix web run build
 - งาน PDF, รูปภาพ, text, Markdown, HTML, OCR, จัดหน้า, แก้ไข/redact และ export ทำในเครื่อง ควรเก็บต้นฉบับและตรวจไฟล์สำคัญหลัง export เพราะ PDF ที่ซับซ้อน เช่น form, signature, layer หรือฟอนต์พิเศษ อาจเปลี่ยนได้
 - ไม่ได้รวม LibreOffice จึงยังใช้ Office-to-PDF ใน build นี้ไม่ได้
 - แอปเซ็นแบบ ad-hoc และไม่ได้ notarize โดย Apple ห้ามปิด Gatekeeper หรือลบ quarantine หาก macOS ไม่ยอมเปิด ให้หยุดและขอ build ที่เชื่อถือได้/notarized
-- repo ต้นทางไม่มีไฟล์ license ระดับโปรเจกต์ การดูหรือ fork บน GitHub ไม่เท่ากับสิทธิ์แจกจ่ายต่อ สิทธิ์แจกจ่าย PDFStudio จึงยังไม่ชัดเจน
-- PyMuPDF ใช้ AGPL หรือ commercial license การเผยแพร่สู่สาธารณะต้องทำตามข้อกำหนด source/copyleft/notices หรือมี commercial license ที่เหมาะสม และยังต้องแก้เรื่องสิทธิ์ของ PDFStudio เองด้วย
-- ระบบอัตโนมัติแสดง Save panel ของ macOS ด้วยชื่อไฟล์สังเคราะห์แล้ว แต่ไม่ได้กดปุ่ม Save ขั้นสุดท้าย จึงยังไม่ยืนยันการสร้างไฟล์ปลายทางผ่าน panel นี้
+- เจ้าของ upstream อนุญาตให้เผยแพร่ source และแพ็กเกจของงานดัดแปลง macOS นี้ภายใต้ GNU AGPLv3 ใน [Issue #1](https://github.com/BerlinoPotato/PDFStudio/issues/1#issuecomment-6397084771) โดยให้ corresponding source รักษาข้อความลิขสิทธิ์ ให้เครดิต และลิงก์กลับต้นฉบับ คำอนุญาตแบบจำกัดขอบเขตนี้ไม่เปลี่ยน license ของ repo ต้นฉบับ
+- PyMuPDF 1.28.0 ใช้ทางเลือก GNU AGPLv3 โดย release แนบ source archive ของ PyMuPDF รุ่นที่ตรงกันไว้ข้าง binary และมี source/build scripts ของงานดัดแปลงใน tag ที่ตรงกับ release
 
-ดู [บันทึกรีลีส](RELEASE_NOTES-0.1.019.md) สำหรับผลทดสอบ ส่วนรายการ dependency notices ฉบับเต็มยังอยู่ใน local review package ที่ไม่ได้เผยแพร่
+ดู [คำอนุญาตจาก upstream](UPSTREAM_PERMISSION.md), [บันทึกรีลีส](RELEASE_NOTES-0.1.019.md) และ `packaging/THIRD_PARTY_NOTICES.md` สำหรับผลทดสอบและรายการ dependencies

@@ -1,8 +1,7 @@
 import json
-import webbrowser
-
 import pytest
 
+import pdfstudio.app as app_module
 from pdfstudio.app import create_app
 from pdfstudio.feedback import Feedback, form_url
 
@@ -67,7 +66,7 @@ def test_feedback_api_requires_authentication_and_preserves_workspace(tmp_path, 
         assert before["preferences"] == after["preferences"]
         assert after["feedback"] == result.json
         calls = []
-        monkeypatch.setattr(webbrowser, "open", lambda url, **kwargs: calls.append(url) or True)
+        monkeypatch.setattr(app_module, "open_external_url", lambda url: calls.append(url) or True)
         assert client.post("/api/feedback/open", headers=token, json={}).json == {"opened": True}
         assert calls == [result.json["url"]]
         assert client.post("/api/feedback/settings", headers=token, json={"url": "https://evil.example/"}).status_code == 400

@@ -15,7 +15,12 @@ vendor/smoke-check/
 web/*.tsbuildinfo
 PDFStudio.spec
 vendor/prerequisites/MicrosoftEdgeWebView2RuntimeInstallerX64.exe
-/docs
+/docs/*
+!/docs/macos/
+!/docs/macos/**
+!/docs/screenshots/
+!/docs/screenshots/macos/
+!/docs/screenshots/macos/**
 .build-tools/
 *.dpapi
 /design-system

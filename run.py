@@ -70,7 +70,11 @@ def main():
             run_desktop(app, url, server)
         else:
             if not args.no_browser:
-                threading.Timer(.4, lambda: webbrowser.open(url)).start()
+                if sys.platform == "darwin":
+                    from pdfstudio.app import open_external_url
+                    threading.Timer(.4, lambda: open_external_url(url)).start()
+                else:
+                    threading.Timer(.4, lambda: webbrowser.open(url)).start()
             server.serve_forever()
     except KeyboardInterrupt:
         pass

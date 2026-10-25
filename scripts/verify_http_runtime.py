@@ -70,7 +70,9 @@ def main():
     assert b"<title>PDF Studio</title>" in html and b'rel="icon"' in html
     config, _ = request("/api/config")
     token = config["token"]
-    assert config["local"] and config["office"] and config["ocr"]
+    assert config["local"] and config["ocr"]
+    if args.office:
+        assert config["office"]
     assert config["maxOpenDocuments"] == 100
     resources = [(p, "text/javascript") for p in re.findall(r'src="([^"]+\.js)"', html.decode())]
     resources += [("/vendor/pdfjs/pdf.worker.min.mjs", "text/javascript"),
@@ -198,19 +200,20 @@ def main():
         finally:
             request("/api/preferences", original_preferences)
         fixture = Path(__file__).resolve().parents[1] / "vendor/smoke-check/word-test.docx"
-        pending = upload("cancel-office.docx", fixture.read_bytes(), job=True, wait=False)
-        time.sleep(.5)
-        request("/api/import-jobs/" + pending["id"] + "/cancel", {})
-        deadline = time.monotonic() + 25
-        while True:
-            state, _ = request("/api/import-jobs/" + pending["id"])
-            if state["done"]:
-                break
-            assert time.monotonic() < deadline, "Office cancellation did not finish"
-            time.sleep(.1)
-        assert state["cancelled"] and not state["documents"] and not state["errors"], state
-        fresh, _ = request("/api/config")
-        assert any(item["id"] == doc["id"] for item in fresh["documents"])
+        if config["office"] and fixture.is_file():
+            pending = upload("cancel-office.docx", fixture.read_bytes(), job=True, wait=False)
+            time.sleep(.5)
+            request("/api/import-jobs/" + pending["id"] + "/cancel", {})
+            deadline = time.monotonic() + 25
+            while True:
+                state, _ = request("/api/import-jobs/" + pending["id"])
+                if state["done"]:
+                    break
+                assert time.monotonic() < deadline, "Office cancellation did not finish"
+                time.sleep(.1)
+            assert state["cancelled"] and not state["documents"] and not state["errors"], state
+            fresh, _ = request("/api/config")
+            assert any(item["id"] == doc["id"] for item in fresh["documents"])
         original = upload("cancel-prepare.html", b"<p>Cancel this generated page.</p>" * 20000, job=True)
         pending, _ = request(f'/api/documents/{original["id"]}/prepare', {})
         request("/api/source-jobs/" + pending["id"] + "/cancel", {})
@@ -224,7 +227,8 @@ def main():
         assert state["cancelled"] and not state["error"]
         fresh, _ = request("/api/config")
         assert not next(item for item in fresh["documents"] if item["id"] == original["id"])["pdfReady"]
-        print("PASS: persisted reminder preferences, real Office cancellation, preserved ready files and cancelled PDF preparation without committing")
+        print("PASS: persisted reminder preferences, preserved ready files and cancelled PDF preparation without committing"
+              + (", including real Office cancellation" if config["office"] and fixture.is_file() else ""))
     if args.quit:
         request("/api/quit", {})
 
